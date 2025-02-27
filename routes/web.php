@@ -4,9 +4,7 @@ use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\ItemsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('categories.index');
-});
+Route::get('/', [CategoryController::class, 'index']);
 
 Route::get('/restaurants', [RestaurantsController::class, 'index'])->name('restaurants.index');
 Route::get('/restaurants/{id}/show', [RestaurantsController::class, 'show'])->name('restaurants.show');
