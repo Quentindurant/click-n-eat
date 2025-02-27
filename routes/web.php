@@ -1,11 +1,11 @@
 <?php
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RestaurantsController;
-use App\http\Controllers\ItemsController;
+use App\Http\Controllers\ItemsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('categories.index');
 });
 
 Route::get('/restaurants', [RestaurantsController::class, 'index'])->name('restaurants.index');
@@ -31,4 +31,3 @@ Route::post('/items', [ItemsController::class, 'store'])->name('items.store');
 Route::get('/items/{id}/edit', [ItemsController::class, 'edit'])->name('items.edit');
 Route::put('/items/{id}', [ItemsController::class, 'update'])->name('items.update');
 Route::delete('/items/{id}', [ItemsController::class, 'destroy'])->name('items.destroy');
-
