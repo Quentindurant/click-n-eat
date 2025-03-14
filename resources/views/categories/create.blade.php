@@ -7,8 +7,21 @@
 
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
-        <label for="name">Nom : </label>
-        <input type="text" id="name" name="name" placeholder="Nom">
-        <button type="submit">Envoyer</button>
+        <div class="form-group mb-3">
+            <label for="name">Nom : </label>
+            <input type="text" id="name" name="name" placeholder="Nom" class="form-control">
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="restaurant_id">Restaurant : </label>
+            <select name="restaurant_id" id="restaurant_id" class="form-control">
+                <option value="">Sélectionnez un restaurant</option>
+                @foreach($restaurants as $restaurant)
+                    <option value="{{ $restaurant->id }}">{{ $restaurant->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
 @endsection

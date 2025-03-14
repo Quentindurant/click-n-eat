@@ -1,0 +1,13 @@
+parameters:
+  level: 5
+  paths:
+    - tests
+  ignoreErrors:
+    - '#Function test not found#'
+    - '#Call to an undefined function expect#'
+    - '#Call to an undefined function beforeEach#'
+    - '#Call to an undefined function afterEach#'
+    - '#Call to an undefined function beforeAll#'
+    - '#Call to an undefined function afterAll#'
+    - '#Call to an undefined function dataset#'
+    - '#Call to an undefined function uses#'

@@ -14,12 +14,19 @@ class CategoryController extends Controller
     }
 
     public function create() {
-        return view('categories.create');
+        return view('categories.create', [
+            'restaurants' => \App\Models\Restaurant::all()
+        ]);
     }
 
     public function store(Request $request) {
-        Category::create($request->all());
-        return redirect()->route('categories.index');
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'restaurant_id' => 'required|exists:restaurants,id',
+        ]);
+        
+        Category::create($validated);
+        return redirect()->route('categories.index')->with('success', 'Catégorie créée avec succès');
     }
 
     public function show($id) {

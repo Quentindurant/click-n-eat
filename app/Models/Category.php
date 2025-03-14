@@ -12,7 +12,8 @@ class Category extends Model
 
     protected $table = "categories";
 	protected $fillable = [
-		"name"
+		"name",
+        "restaurant_id"
 	];
 
     public function restaurant()
@@ -21,6 +22,6 @@ class Category extends Model
     }
     public function items()
     {
-        return $this->hasMany(Items::class);
+        return $this->hasMany(Item::class);
     }
 }
