@@ -8,7 +8,7 @@ use App\Models\Restaurant;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Items;
+use App\Models\Item;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,6 +30,6 @@ class DatabaseSeeder extends Seeder
 
         Restaurant::factory(10)->create();
         Category::factory(10)->create();
-        Items::factory(10)->create();
+        Item::factory(10)->create();
     }
 }
