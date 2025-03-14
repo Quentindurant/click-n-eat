@@ -19,9 +19,40 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
             sudo git pull
             sudo composer install --no-interaction --prefer-dist --optimize-autoloader
-            sudo npm install
+            
+            # Vérifier que Node.js est installé et à jour
+            echo "Vérification de Node.js..."
+            if ! command -v node &> /dev/null; then
+              echo "Node.js n'est pas installé. Installation..."
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
+            # Installer les dépendances npm et compiler les assets
+            echo "Installation des dépendances npm..."
+            sudo npm ci
+            
+            echo "Compilation des assets..."
             sudo npm run build
+            
+            # Vérifier que le répertoire build existe
+            if [ ! -d "public/build" ]; then
+              echo "Le répertoire build n'existe pas. Création..."
+              sudo mkdir -p public/build
+            fi
+            
+            # Vérifier que le manifeste existe
+            if [ ! -f "public/build/manifest.json" ]; then
+              echo "Le manifeste n'existe pas. Réessai de compilation..."
+              sudo npm run build
+            fi
+            
+            # Optimiser Laravel
+            sudo php artisan optimize:clear
             sudo php artisan config:cache
             sudo php artisan route:cache
             sudo php artisan view:cache
+            
+            # Corriger les permissions
+            sudo chmod -R 775 storage bootstrap/cache public/build
             sudo chown -R www-data:www-data .
